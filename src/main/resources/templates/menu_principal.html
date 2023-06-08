@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="head">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="sylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<title>Insert title here</title>
+<style>
+
+/* Estilo PARA FONDO*/
+    #container2 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    /* Estilo para la imagen de fondo */
+    #background-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+ /* Estilo para el contenedor del banner */
+    .banner-container {
+      position: relative;
+      width: 100%;
+      max-height: 400px; /* Ajusta esta altura según tus necesidades */
+      overflow: hidden;
+    }
+
+    /* Estilo para la imagen de fondo */
+    .banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Estilo para el texto de misión y visión */
+    .mission-vision {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+    }
+
+    /* Estilo para el texto de misión */
+    .mission {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    /* Estilo para el texto de visión */
+    .vision {
+      font-size: 18px;
+    }
+
+    /* Estilo para el botón de la imagen */
+    .image-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+
+</style>
+</head>
+<body >
+<div th:insert="fragments/NavMenu :: cabecera"></div>
+ <div class="banner-container">
+    <a href="#">
+      <img class="banner-image" src="img_menu/imagen2.jpg" alt="Imagen de fondo">
+      <div class="image-button"></div>
+    </a>
+
+    <div class="mission-vision">
+      <div class="mission">
+         <h1>QUICKSTOP</h1>
+         <p>Tienda Online</p>
+      </div>
+      
+    </div>
+  </div>
+
+ <div class="banner-container">
+    <a href="#">
+      <img class="banner-image" src="img_menu/imagen3.jpg" alt="Imagen de fondo">
+      <div class="image-button"></div>
+    </a>
+
+    <div class="mission-vision">
+      <div class="mission">
+         <h1>CONSULTAS DE EL PROYECTO</h1>
+         
+      </div>
+      <div class="vision">
+  
+      </div>
+    </div>
+  </div>
+   <div class="banner-container">
+    <a href="#">
+      <img class="banner-image" src="img_menu/imagen1.jpeg" alt="Imagen de fondo">
+      <div class="image-button"></div>
+    </a>
+
+    <div class="mission-vision">
+      <div class="mission">
+         <h1>MANTENIMIENTO DEL PROYECTO</h1>
+
+      </div>
+      <div class="vision">
+
+    
+      </div>
+    </div>
+  </div>
+
+ <div class="banner-container">
+    <a href="#">
+      <img class="banner-image" src="img_menu/imagen2.jpg" alt="Imagen de fondo">
+      <div class="image-button"></div>
+    </a>
+
+    <div class="mission-vision">
+      <div class="mission">
+         <h1>REPORTES DEL PROYECTO</h1>
+
+      </div>
+      <div class="vision">
+
+
+      </div>
+    </div>
+  </div>
+
+  
+
+ 
+  
+  
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>SISTEMA PROYECTO</title>
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div th:insert="fragments/NavMenu :: cabecera"></div>
+	<main class="container mt-5 pt-2">
+		<section>
+			<div class=" flex-wrap justify-content-around">
+				<div>
+					<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+						<h3 class="text-center">LISTA CATEGORIAS</h3>
+						<button type="button" class="btn btn-primary btn-success btn-registrar-categoria" data-bs-toggle="modal"
+							data-bs-target="#modalMantenimiento">
+							<i class="bi bi-plus-circle-fill"></i> Registrar
+						</button>
+					</div>
+					<table id="tableCategoria" class="mt-3 mx-auto table align-middle table-hover">
+				<thead class="table-dark">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Descripcion</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="row:${categorias}">
+								<td th:text="${row.id}"></td>
+								<td th:text="${row.nombre}"></td>
+								<td th:text="${row.descripcion}"></td>
+								<td>
+									<button type="button" class="btn btn-primary btn-editar-categoria" data-bs-toggle="modal"
+										data-bs-target="#modalMantenimiento">
+										<i class="bi bi-pencil-square"></i>
+									</button>
+									<button type="button" class="btn btn-danger btn-eliminar-categoria">
+										<i class="bi bi-trash-fill"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button type="button" class="btn btn-warning" id="btn-reporte-categorias">Reporte</button>
+				</div>
+				<div>
+					<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+						<h3 class="text-center">LISTA MARCAS</h3>
+						<button type="button" class="btn btn-primary btn-success btn-registrar-marca" data-bs-toggle="modal"
+							data-bs-target="#modalMantenimiento">
+							<i class="bi bi-plus-circle-fill"></i> Registrar
+						</button>
+					</div>
+					<table id="tableMarca" class="mt-3 mx-auto table align-middle table-hover">
+				<thead class="table-dark">
+							<tr>
+								<th>Id</th>
+								<th>Nombre</th>
+								<th>Descripcion</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="row:${marcas}">
+								<td th:text="${row.id}"></td>
+								<td th:text="${row.nombre}"></td>
+								<td th:text="${row.descripcion}"></td>
+								<td>
+									<button type="button" class="btn btn-primary btn-editar-marca" data-bs-toggle="modal"
+										data-bs-target="#modalMantenimiento">
+										<i class="bi bi-pencil-square"></i>
+									</button>
+									<button type="button" class="btn btn-danger btn-eliminar-marca">
+										<i class="bi bi-trash-fill"></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<button type="button" class="btn btn-warning" id="btn-reporte-marcas">Reporte</button>
+				</div>
+			</div>
+		</section>
+		<!-- Modal PARA REGISTRAR y Editar-->
+		<div class="modal fade" id="modalMantenimiento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<h5 class="modal-title text-white" id="staticBackdropLabel"><i class="bi bi-circle-fill"></i>
+							<b class="title-modal">CATEGORIA</b></h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="formMantenimiento" action="grabar" method="post" class="row g-3">
+							<div class="form-group col-md-4">
+								<label for="validationCustomUsername" class="form-label fw-bold">Id</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i
+											class="bi bi-hash"></i></i></span>
+									<input type="text" class="form-control" name="id" id="idId" readonly value="0">
+								</div>
+							</div>
+							<div class="form-group col-md-8">
+								<label for="validationCustomUsername" class="form-label fw-bold">Nombre</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-text-fill"></i></span>
+									<input type="text" class="form-control" name="nombre" id="idNombre">
+								</div>
+							</div>
+							<div class="form-group col-md-8">
+								<label for="validationCustomUsername" class="form-label fw-bold">Descripcion</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-text-fill"></i></span>
+									<input type="text" class="form-control" name="descripcion" id="idDescripcion">
+								</div>
+							</div>							
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success btn-guardar"><i class="bi bi-save2"></i>
+									Guardar</button>
+								<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
+										class="bi bi-x-circle-fill"></i> Cerrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--fin modal PARA REGISTRAR-->
+	</main>
+	<!-- JS principal -->
+	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script th:src="@{/resources/js/bootstrap.bundle.min.js}"></script>
+	<!-- JS para la tabla -->
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<!--JS para validar  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+	<!--JS para Calendario  -->
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		let msj;
+		msj =/*[[${MENSAJE}]]*/
+			toastr.success(msj, toastr.options = {
+				"timeOut": "2000",
+				"positionClass ": " toast-top-right ",
+			});
+	</script>
+	<script>
+		//VaciarFormulario
+		function setFormSaveEmpty() {
+			$("#idId").val(0);
+			$("#idNombre").val("");
+			$("#idDescripcion").val("");
+		}
+		//Validaciones de Formulario
+		$(document).ready(function () {
+			//DataTable
+			$('#tableCategoria').DataTable({
+        	"language": {
+       	     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        	},
+       	 	dom: 'Bfrtip',
+        	buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        	]
+    	});
+			$('#tableMarca').DataTable({
+        	"language": {
+       	     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
+        	},
+       	 	dom: 'Bfrtip',
+        	buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        	]
+    	});
+			$('#modalMantenimiento')
+				.on('hidden.bs.modal', function () {
+					$("#formMantenimiento").bootstrapValidator('resetForm', true);
+					setFormSaveEmpty();
+				})
+			$('#formMantenimiento').bootstrapValidator({
+				fields: {
+					nombre: {
+						validators: {
+							notEmpty: {
+								message: 'Campo nombre es obligatorio'
+							},
+							regexp: {
+								regexp: /^[a-z0-9A-Z\s+]{1,}$/,
+								message: "El nombre debe ser alfanumerico"
+							}
+						}
+					},							
+				}
+			})
+		});
+		
+		function cambiarTitleModalActionForm(tipo){
+			$(".title-modal").empty();
+			if(tipo==="categoria"){
+			$(".title-modal").append("CATEGORIA");
+			$("#formMantenimiento").attr("action","grabarCategoria");
+			}
+			if(tipo==="marca"){
+			$(".title-modal").append("MARCA");
+			$("#formMantenimiento").attr("action","grabarMarca");
+			}
+		}
+		//Acciones
+		//Boton Registrar
+		$(document).on("click", ".btn-registrar-categoria", function () {
+			cambiarTitleModalActionForm("categoria");
+		});
+		$(document).on("click", ".btn-registrar-marca", function () {
+			cambiarTitleModalActionForm("marca");
+		});
+		//Boton Editar
+		$(document).on("click", ".btn-editar-categoria", function () {
+			cambiarTitleModalActionForm("categoria");
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			$.get("buscarCategoria?id=" + id, function (response) {
+				$("#idId").val(response.id);
+				$("#idNombre").val(response.nombre);
+			})
+		});
+		$(document).on("click", ".btn-editar-marca", function () {
+			cambiarTitleModalActionForm("marca");
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			$.get("buscarMarca?id=" + id, function (response) {
+				$("#idId").val(response.id);
+				$("#idNombre").val(response.nombre);
+			})
+		});
+		//Boton Eliminar
+		$(document).on("click", ".btn-eliminar-categoria", function () {
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			console.log(id)
+			alertify.confirm("Confirmacion", "Desea eliminar Categoria?",
+				function () {
+					window.location = "eliminarCategoria?id=" + id;
+				},
+				function () {
+					//alertify.error('Cancel');
+					console.log("cancelo Operacion")
+				});
+		})
+		$(document).on("click", ".btn-eliminar-marca", function () {
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			console.log(id)
+			alertify.confirm("Confirmacion", "Desea eliminar Marca?",
+				function () {
+					window.location = "eliminarMarca?id=" + id;
+				},
+				function () {
+					//alertify.error('Cancel');
+					console.log("cancelo Operacion")
+				});
+		})
+		$(document).on("click","#btn-reporte-categorias",function(){
+			let cod;
+			cod=$("#idProyecto").val();
+			window.open("http://localhost:8091/CategoriasMarcas/reporteCategorias","_black")
+						
+		})
+		$(document).on("click","#btn-reporte-marcas",function(){
+			let cod;
+			cod=$("#idProyecto").val();
+			window.open("http://localhost:8091/CategoriasMarcas/reporteMarcas","_black")
+						
+		})
+	</script>
+
+</body>
+
+</html>

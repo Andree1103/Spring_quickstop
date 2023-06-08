@@ -1,0 +1,47 @@
+.help-block {
+		  		color: red;
+		}
+		.form-group.has-error .form-control-label {
+		  color: red;
+		}
+		.form-group.has-error .form-control {
+		  border: 1px solid red;
+		  box-shadow: 0 0 0 0.2rem rgba(250, 16, 0, 0.18);
+		}
+		.alertify .ajs-dialog {
+		    top: 50%;
+		    border-radius: 1rem;
+		    transform: translateY(-50%);
+		    margin: auto;
+		}
+		.ajs-header{
+			background-color: #f44 !important;
+			color: white !important;
+			border-radius: 1rem 1rem 0 0 ;
+			font-size: 1.2rem;
+			font-weight: bold;
+		}
+		.ajs-footer{
+			border-radius:0 0 1rem 1rem ;
+		}
+		.ajs-button{
+			color: #fff;
+			font-weight: bold;
+			border:none;
+			border-radius:1rem ;
+		}
+		.ajs-buttons{
+			display:flex !important;
+			justify-content: center;
+			padding-bottom: 0.5rem;
+		}
+		.ajs-ok{
+			color: #fff;
+		    background-color: #1a1;
+		    border-color: #007bff;
+		}
+		.ajs-cancel{
+			color: #fff;
+		    background-color: #dc3545;
+		    border-color: #dc3545;
+		}

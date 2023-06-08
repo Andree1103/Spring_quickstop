@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>SISTEMA PROYECTO</title>
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+</head>
+
+<body>
+	<div th:insert="fragments/NavMenu :: cabecera"></div>
+	<main class="container mt-5 pt-2">
+		<section>
+			<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+				<h3 class="text-center">MANTENIMIENTO RECLAMOS</h3>
+				<button type="button" class="btn btn-primary btn-success" data-bs-toggle="modal"
+					data-bs-target="#modalMantenimiento">
+					<i class="bi bi-plus-circle-fill"></i> Registrar
+				</button>
+			</div>
+			<table id="tableMantenimiento" class="mt-3 mx-auto table table-striped table-dark">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Descripcion</th>
+						<th>Fecha</th>
+						<th>Cliente</th>
+						<th>Estado</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="row:${reclamos}">
+						<td th:text="${row.id}"></td>
+						<td th:text="${row.descripcion}"></td>
+						<td th:text="${row.fecha}"></td>
+						<td th:text="${row.cliente.nombre}"></td>
+						<td th:switch="${row.estado}">
+							<p th:case="1" class="bg-success text-center m-0  py-1 rounded-pill">Activo</p>
+							<p th:case="0" class="bg-danger text-center m-0   py-1 rounded-pill">Desactivo</p>
+						</td>
+						<td>
+							<button type="button" class="btn btn-primary btn-editar" data-bs-toggle="modal"
+								data-bs-target="#modalMantenimiento">
+								<i class="bi bi-pencil-square"></i>
+							</button>
+							<button type="button" class="btn btn-danger btn-eliminar">
+								<i class="bi bi-trash-fill"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>				
+			</table>
+			<button type="button" class="btn btn-warning" id="btn-reporte">Reporte</button>
+		</section>
+		<!-- Modal PARA REGISTRAR y Editar-->
+		<div class="modal fade" id="modalMantenimiento" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg">
+				<div class="modal-content">
+					<div class="modal-header bg-primary">
+						<h5 class="modal-title text-white" id="staticBackdropLabel"><i class="bi bi-circle-fill"></i>
+							RECLAMO</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="formMantenimiento" action="grabar" method="post" class="row g-3">
+							<div class="form-group col-md-4">
+								<label for="validationCustomUsername" class="form-label fw-bold">Id</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i
+											class="bi bi-hash"></i></i></span>
+									<input type="text" class="form-control" name="id" id="idId" readonly value="0">
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="validationCustomUsername" class="form-label fw-bold">Descripcion</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-text-fill"></i></span>
+									<input type="text" class="form-control" name="descripcion" id="idDescripcion">
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="validationCustomUsername" class="form-label fw-bold">Fecha</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-currency-dollar"></i></span>
+									<input type="text" class="form-control" name="fecha" id="idFecha">
+								</div>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="validationCustomUsername" class="form-label fw-bold">Estado</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i
+											class="bi bi-exclamation-circle-fill"></i></span>
+									<select class="form-select form-control" name="estado" id="idEstado">
+										<option value="1">Activo</option>
+										<option value="0">Desactivo</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group col-md-6">
+								<label for="validationCustomUsername" class="form-label fw-bold">Clientes</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-info-circle-fill"></i></span>
+									<select class="form-select form-control" name="cliente" id="idCliente">
+										<option value="0">[Seleccione Cliente]</option>
+										<option th:each="row:${clientes}" th:utext="${row.nombre}"
+											th:value="${row.id}">
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success btn-guardar"><i class="bi bi-save2"></i>
+									Guardar</button>
+								<button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i
+										class="bi bi-x-circle-fill"></i> Cerrar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--fin modal PARA REGISTRAR-->
+	</main>
+	<!-- JS principal -->
+	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script th:src="@{/resources/js/bootstrap.bundle.min.js}"></script>
+	<!-- JS para la tabla -->
+	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<!--JS para validar  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+	<!--JS para Calendario  -->
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		let msj;
+		msj =/*[[${MENSAJE}]]*/
+			toastr.success(msj, toastr.options = {
+				"timeOut": "2000",
+				"positionClass ": " toast-top-right ",
+			});
+	</script>
+	<script>
+		function setFormSaveEmpty() {
+			$("#idId").val(0);
+			$("#idDescripcion").val("");
+			$("#idFecha").val("");
+			$("#idEstado").val(1);
+			$("#idCliente").val(0);
+		}
+		//Validaciones de Formulario
+		$(document).ready(function () {
+			$('#tableMantenimiento').DataTable();
+			$('#modalMantenimiento')
+				.on('hidden.bs.modal', function () {
+					$("#formMantenimiento").bootstrapValidator('resetForm', true);
+					setFormSaveEmpty();
+				})
+			$('#formMantenimiento').bootstrapValidator({
+				fields: {
+					nombre: {
+						validators: {
+							notEmpty: {
+								message: 'Campo nombre es obligatorio'
+							},
+							regexp: {
+								regexp: /^[a-z0-9A-Z\s+]{1,}$/,
+								message: "El nombre debe ser alfanumerico"
+							}
+						}
+					},
+					descripcion: {
+						validators: {
+							notEmpty: {
+								message: 'Campo descripcion es obligatorio'
+							},
+							regexp: {
+								regexp: /^[a-z0-9A-Z\s+]{1,}$/,
+								message: "La descripcion debe ser alfanumerico"
+							}
+						}
+					},
+					precio: {
+						validators: {
+							notEmpty: {
+								message: 'Campo precio es obligatorio'
+							},
+							regexp: {
+								regexp: /^\d{1,}(\.\d{1,})?$/,
+								message: "La precio debe ser alfanumerico"
+							}
+						}
+					},
+					stock: {
+						validators: {
+							notEmpty: {
+								message: 'Campo stock es obligatorio'
+							},
+							regexp: {
+								regexp: /^[0-9]{1,}$/,
+								message: "Debe contener digitos enteros"
+							}
+						}
+					},
+					phone: {
+						validators: {
+							notEmpty: {
+								message: 'Campo celular es obligatorio'
+							},
+							regexp: {
+								regexp: /^[0-9]{9}$/,
+								message: "Debe contener 9 digitos"
+							}
+						}
+					},
+					categoria: {
+						validators: {
+							callback: {
+								message: 'Es necesario escoger una Categoria',
+								callback: function (value, validator) {									
+									return (value !== "0")
+								}
+
+							}
+						}
+					},
+					marca: {
+						validators: {
+							callback: {
+								message: 'Es necesario escoger una Marca',
+								callback: function (value, validator) {									
+									return (value !== "0")
+								}
+
+							}
+						}
+					},
+				}
+			})
+		});
+		//Acciones
+		//Boton Editar
+		$(document).on("click", ".btn-editar", function () {
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			$.get("buscar?id=" + id, function (response) {
+				console.log(response);
+				$("#idId").val(response.id);
+				$("#idDescripcion").val(response.descripcion);
+				$("#idFecha").val(response.fecha);
+				$("#idEstado").val(response.estado);
+				$("#idCliente").val(response.cliente.id);
+			})
+		});
+		//Boton Eliminar
+		$(document).on("click", ".btn-eliminar", function () {
+			let id = $(this).parents("tr").find("td")[0].innerHTML;
+			console.log(id)
+			alertify.confirm("Confirmacion", "Desea eliminar al Producto?",
+				function () {
+					window.location = "eliminar?id=" + id;
+				},
+				function () {
+					//alertify.error('Cancel');
+					console.log("cancelo Operacion")
+				});
+		})
+		$(document).on("click","#btn-reporte",function(){
+			let cod;
+			cod=$("#idProyecto").val();
+			window.open("http://localhost:8091/Reclamos/reporte","_black")
+						
+		})
+
+
+	</script>
+
+</body>
+
+</html>
