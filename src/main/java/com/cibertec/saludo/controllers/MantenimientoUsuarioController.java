@@ -125,7 +125,7 @@ public class MantenimientoUsuarioController {;
 	public void reporte(HttpServletResponse response) {
 		try {
 			List<Usuario> data = servUsuario.listarUsuarios();
-			File file=ResourceUtils.getFile("classpath:reporte_usuarios.jrxml");
+			File file=ResourceUtils.getFile("classpath:ReporteUsuario.jrxml");
 			JRBeanCollectionDataSource info=new JRBeanCollectionDataSource(data);
 			JasperPrint print=Libreria.generarReporte(file, info);
 			response.setContentType("application/pdf");

@@ -121,7 +121,7 @@ public class Usuario {
 		this.tipoUsuario = tipoUsuario;
 	}
 	public Rol getRol() {
-		return rol;
+		return rol; 
 	}
 	public void setRol(Rol rol) {
 		this.rol = rol;
@@ -132,6 +132,13 @@ public class Usuario {
 	public void setDistrito(Distrito distrito) {
 		this.distrito = distrito;
 	}
-
+	
+	public String getNombreCompletos() {
+		return this.nombre + this.apellido != null ? this.nombre + " " + this.apellido : "---";
+	}
+	
+	public String getTipoUsuarios() {
+		return this.tipoUsuario != null ? this.tipoUsuario.getNombre() : "---";
+	}
 	
 }

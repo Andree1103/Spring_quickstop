@@ -24,4 +24,5 @@ public class ProductoService {
 	public Producto buscar(Integer id) {
 		return repo.findById(id).orElse(null);
 	}
+	
 }

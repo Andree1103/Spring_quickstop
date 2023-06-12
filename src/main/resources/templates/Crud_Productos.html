@@ -77,7 +77,7 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form id="formMantenimiento" action="grabar" method="post" class="row g-3">
+						<form id="formMantenimiento" action="grabar" method="post" class="row g-3"  enctype="multipart/form-data">
 							<div class="form-group col-md-4">
 								<label for="validationCustomUsername" class="form-label fw-bold">Id</label>
 								<div class="input-group has-validation">
@@ -98,6 +98,13 @@
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-text-fill"></i></span>
 									<input type="text" class="form-control" name="descripcion" id="idDescripcion">
+								</div>
+							</div>
+							<div class="form-group col-md-12">
+								<label for="validationCustomUsername" class="form-label fw-bold">Imagen</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-file-text-fill"></i></span>
+									<input type="file" class="form-control" name="imagen" id="idImagen">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
@@ -302,6 +309,7 @@
 				$("#idId").val(response.id);
 				$("#idNombre").val(response.nombre);
 				$("#idDescripcion").val(response.descripcion);
+				$("#idImagen").val(response.image);
 				$("#idPrecio").val(response.precio);
 				$("#idStock").val(response.stock);
 				$("#idEstado").val(response.estado);

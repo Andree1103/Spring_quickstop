@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>SISTEMA PROYECTO</title>
+<!-- Bootstrap CSS -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+</head>
+<style>
+.card-body {
+display:flex;
+}
+</style>
+<body>
+	<div th:insert="fragments/NavMenu :: cabecera"></div>
+	<div class="container mt-5 pt-2">
+		<div class="card bg-light">
+			<div class="card-header bg-dark text-white text-center text-uppercase" th:text="${titulo}">
+			</div>
+			<div class="card-body">
+				<img class="img-thumbnail rounded float-left"
+					th:src="@{'/images/' + ${productos.imagen}}"
+					th:alt="${productos.imagen}" style="max-width: 25%;">
+				<ul class="list-group">
+					<li class="list-group-item"
+						th:text="'NOMBRE DEL PRODUCTO: ' + ${productos.nombre}"></li>
+					<li class="list-group-item"
+						th:text="'DESCRIPCION DEL PRODUCTO: ' + ${productos.descripcion}"></li>
+					<li class="list-group-item"
+						th:text="'PRECIO DEL PRODUCTO: ' + ${productos.precio}"></li>
+					<li class="list-group-item"
+						th:text="'STOCK DEL PRODUCTO: ' + ${productos.stock}"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- JS principal -->
+	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script th:src="@{/resources/js/bootstrap.bundle.min.js}"></script>
+	<!-- JS para la tabla -->
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<!--JS para validar  -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+	<!--JS para Calendario  -->
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
+	<script th:inline="javascript" th:if="${MENSAJE!=null}">
+		let msj;
+		msj =/*[[${error}]]*/
+			toastr.success(msj, toastr.options = {
+				"timeOut": "2000",
+				"positionClass ": " toast-top-right ",
+			});
+	</script>
+
+</body>
+
+</html>

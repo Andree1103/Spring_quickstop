@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>SISTEMA PROYECTO</title>
+	<!-- Bootstrap CSS -->
+	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
+	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
+	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
+	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+</head>
+<style>
+		.container {
+			max-width: 800px;
+		}
+
+		.card {
+			margin-bottom: 20px;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.card img {
+			max-width: 100%;
+			height: auto;
+			margin-bottom: 10px;
+		}
+
+		.card h3 {
+			margin-bottom: 5px;
+		}
+
+		.card p {
+			margin-bottom: 10px;
+		}
+
+		.btn-registrar {
+			margin-top: 20px;
+		}
+
+		@media (max-width: 767px) {
+			.card {
+				padding: 10px;
+			}
+
+			.card h3 {
+				font-size: 18px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<!-- Navbar -->
+	<div th:insert="fragments/NavMenu :: cabecera"></div>
+
+	<!-- Content -->
+	<div class="container mt-5 pt-2">
+		<section>
+			<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+				<h3 class="text-center">MANTENIMIENTO PRODUCTOS</h3>
+				<button type="button" class="btn btn-primary btn-success btn-registrar" data-bs-toggle="modal"
+					data-bs-target="#modalMantenimiento">
+					<i class="bi bi-plus-circle-fill"></i> Registrar
+				</button>
+			</div>
+			<div>
+				<div th:each="row:${productos}" class="card">
+					<img th:src="@{'/images/' + ${row.imagen}}" th:alt="${row.imagen}">
+					<h3 th:text="${row.nombre}"></h3>
+					<p th:text="${row.descripcion}"></p>
+					<p th:text="${row.precio}"></p>
+					<p th:text="${row.stock}"></p>
+					<a class="btn btn-info btn-xs" th:href="@{detalle/} + ${row.id}">Info</a>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<!-- JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

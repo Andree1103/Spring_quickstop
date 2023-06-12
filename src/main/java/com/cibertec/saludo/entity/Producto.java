@@ -21,6 +21,7 @@ public class Producto {
 	private Integer id;
 	private String nombre;
 	private String descripcion;
+	private String imagen;
 	private double precio;
 	private int stock;
 	private int estado;
@@ -59,6 +60,12 @@ public class Producto {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public String getImagen() {
+		return imagen;
+	}
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	public double getPrecio() {
 		return precio;
