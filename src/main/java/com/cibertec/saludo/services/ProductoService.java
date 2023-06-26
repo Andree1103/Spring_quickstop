@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.ProductoRepository;
-import com.cibertec.saludo.entity.Producto;
+import com.cibertec.saludo.models.Producto;
+import com.cibertec.saludo.repos.ProductoRepository;
 
 @Service
 public class ProductoService {

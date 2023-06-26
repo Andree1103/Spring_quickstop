@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.UsuarioRepository;
-import com.cibertec.saludo.entity.Url;
-import com.cibertec.saludo.entity.Usuario;
+import com.cibertec.saludo.models.Url;
+import com.cibertec.saludo.models.Usuario;
+import com.cibertec.saludo.repos.UsuarioRepository;
 
 @Service
 public class UsuarioService implements UserDetailsService{	

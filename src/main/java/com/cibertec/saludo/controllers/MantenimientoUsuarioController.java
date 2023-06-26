@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-import com.cibertec.saludo.entity.Distrito;
-import com.cibertec.saludo.entity.Producto;
-import com.cibertec.saludo.entity.Rol;
-import com.cibertec.saludo.entity.TipoUsuario;
-import com.cibertec.saludo.entity.Usuario;
+import com.cibertec.saludo.models.Distrito;
+import com.cibertec.saludo.models.Producto;
+import com.cibertec.saludo.models.Rol;
+import com.cibertec.saludo.models.TipoUsuario;
+import com.cibertec.saludo.models.Usuario;
 import com.cibertec.saludo.services.DistritoService;
 import com.cibertec.saludo.services.RolService;
 import com.cibertec.saludo.services.TipoUsuarioService;
@@ -125,7 +124,7 @@ public class MantenimientoUsuarioController {;
 	public void reporte(HttpServletResponse response) {
 		try {
 			List<Usuario> data = servUsuario.listarUsuarios();
-			File file=ResourceUtils.getFile("classpath:ReporteUsuario.jrxml");
+			File file=ResourceUtils.getFile("classpath:reporte_usuarios.jrxml");
 			JRBeanCollectionDataSource info=new JRBeanCollectionDataSource(data);
 			JasperPrint print=Libreria.generarReporte(file, info);
 			response.setContentType("application/pdf");

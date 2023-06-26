@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.CategoriaRepository;
-import com.cibertec.saludo.entity.Categoria;
+import com.cibertec.saludo.models.Categoria;
+import com.cibertec.saludo.repos.CategoriaRepository;
 
 @Service
 public class CategoriaService {

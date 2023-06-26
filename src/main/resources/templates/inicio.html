@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="ISO-8859-1">
-	<title>SISTEMA PROYECTO</title>
+	<title>QuickStore</title>
 	<!-- Bootstrap CSS -->
 	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
 	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
@@ -13,11 +13,15 @@
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
 	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+	<!-- Incluir la biblioteca Highcharts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+
 </head>
 <style>
   .card {
     max-width: 18rem;
-    background-color: #f2e8c9; /* Color de fondo tono pastel elegante */
+    background-color: #1b1215; /* Color de fondo tono pastel elegante */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra */
     transition: box-shadow 0.3s ease; /* Transición de la sombra al pasar el cursor */
   }
@@ -27,9 +31,11 @@
   }
 
   .card-header {
-    background-color: #b7a183; /* Color de fondo del encabezado */
+    background-color: #1b1215; /* Color de fondo del encabezado */
     color: #fff; /* Color del texto del encabezado */
     padding: 10px;
+    text-align: center;
+    font-weight: bold;
   }
 
   .card-body {
@@ -43,18 +49,20 @@
   .card-body svg {
     width: 150px;
     height: 80px;
-    fill: currentColor;
+    fill: #ffb826;
   }
 
   .card-text {
     margin: 0;
     padding: 0;
+    color: #fff;
     font-style: italic;
   }
 
   .h4 {
     font-size: 1.5rem;
     margin: 0;
+    color: #fff;
   }
 
   .card:hover .card-body {
@@ -86,10 +94,31 @@
       transform: translateX(0);
     }
   }
+  .contad {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+@media (min-width: 768px) {
+  .contad {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
 </style>
 <body>
 	<div th:insert="fragments/NavMenu :: cabecera"></div>
-	<main class="container mt-5 pt-5">
+	
+	<main class="container mt-5 pt-5 mb-5">
+		<div class="contad">
+			<div id="chartContainer"></div>
+			<div id="grafico"></div>
+		</div>
 		<section class="mt-4  d-flex flex-wrap gap-5 justify-content-around">
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">USUARIOS</div>
@@ -111,11 +140,9 @@
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">PRODUCTOS</div>
 				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="150" height="80" fill="currentColor"
-						class="bi bi-boxes" viewBox="0 0 16 16">
-						<path
-							d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434L7.752.066ZM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567L4.25 7.504ZM7.5 9.933l-2.75 1.571v3.134l2.75-1.571V9.933Zm1 3.134 2.75 1.571v-3.134L8.5 9.933v3.134Zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567-2.742 1.567Zm2.242-2.433V3.504L8.5 5.076V8.21l2.75-1.572ZM7.5 8.21V5.076L4.75 3.504v3.134L7.5 8.21ZM5.258 2.643 8 4.21l2.742-1.567L8 1.076 5.258 2.643ZM15 9.933l-2.75 1.571v3.134L15 13.067V9.933ZM3.75 14.638v-3.134L1 9.933v3.134l2.75 1.571Z" />
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-inboxes-fill" viewBox="0 0 16 16">
+  <path d="M4.98 1a.5.5 0 0 0-.39.188L1.54 5H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0A.5.5 0 0 1 10 5h4.46l-3.05-3.812A.5.5 0 0 0 11.02 1H4.98zM3.81.563A1.5 1.5 0 0 1 4.98 0h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625a.5.5 0 0 1 .106.374l-.39 3.124A1.5 1.5 0 0 1 14.117 10H1.883A1.5 1.5 0 0 1 .394 8.686l-.39-3.124a.5.5 0 0 1 .106-.374L3.81.563zM.125 11.17A.5.5 0 0 1 .5 11H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0 .5.5 0 0 1 .5-.5h5.5a.5.5 0 0 1 .496.562l-.39 3.124A1.5 1.5 0 0 1 14.117 16H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .121-.393z"/>
+</svg>
 					<div class="d-flex flex-column justify-content-center align-items-center">
 						<em class="card-text p-0 m-0">Numero de productos registrados:</em>
 						<b th:text=${cantPro} class="h4"></b>
@@ -125,11 +152,10 @@
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">CATEGORIAS</div>
 				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" fill="currentColor"
-						class="bi bi-menu-button-wide-fill" viewBox="0 0 16 16">
-						<path
-							d="M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1zm9.927.427A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0l-.396-.396zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags-fill" viewBox="0 0 16 16">
+  <path d="M2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586V2zm3.5 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+  <path d="M1.293 7.793A1 1 0 0 1 1 7.086V2a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l.043-.043-7.457-7.457z"/>
+</svg>
 					<div class="d-flex flex-column justify-content-center align-items-center">
 						<em class="card-text p-0 m-0">Numero de categorias registrados:</em>
 						<b th:text=${cantCat} class="h4"></b>
@@ -139,13 +165,10 @@
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">MARCAS</div>
 				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="150" height="80" fill="currentColor"
-						class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
-						<path
-							d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z" />
-						<path
-							d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z" />
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ol" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"/>
+  <path d="M1.713 11.865v-.474H2c.217 0 .363-.137.363-.317 0-.185-.158-.31-.361-.31-.223 0-.367.152-.373.31h-.59c.016-.467.373-.787.986-.787.588-.002.954.291.957.703a.595.595 0 0 1-.492.594v.033a.615.615 0 0 1 .569.631c.003.533-.502.8-1.051.8-.656 0-1-.37-1.008-.794h.582c.008.178.186.306.422.309.254 0 .424-.145.422-.35-.002-.195-.155-.348-.414-.348h-.3zm-.004-4.699h-.604v-.035c0-.408.295-.844.958-.844.583 0 .96.326.96.756 0 .389-.257.617-.476.848l-.537.572v.03h1.054V9H1.143v-.395l.957-.99c.138-.142.293-.304.293-.508 0-.18-.147-.32-.342-.32a.33.33 0 0 0-.342.338v.041zM2.564 5h-.635V2.924h-.031l-.598.42v-.567l.629-.443h.635V5z"/>
+</svg>
 					<div class="d-flex flex-column justify-content-center align-items-center">
 						<em class="card-text p-0 m-0">Numero de marcas registrados:</em>
 						<b th:text=${cantMar} class="h4"></b>
@@ -153,74 +176,67 @@
 				</div>
 			</div>
 			<div class="card" style="max-width: 18rem;">
-				<div class="card-header">Ventas</div>
+				<div class="card-header">VENTAS</div>
 				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" fill="currentColor"
-						class="bi bi-people-fill" viewBox="0 0 16 16">
-						<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-						<path fill-rule="evenodd"
-							d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
-						<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-receipt-cutoff" viewBox="0 0 16 16">
+  <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zM11.5 4a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
+  <path d="M2.354.646a.5.5 0 0 0-.801.13l-.5 1A.5.5 0 0 0 1 2v13H.5a.5.5 0 0 0 0 1h15a.5.5 0 0 0 0-1H15V2a.5.5 0 0 0-.053-.224l-.5-1a.5.5 0 0 0-.8-.13L13 1.293l-.646-.647a.5.5 0 0 0-.708 0L11 1.293l-.646-.647a.5.5 0 0 0-.708 0L9 1.293 8.354.646a.5.5 0 0 0-.708 0L7 1.293 6.354.646a.5.5 0 0 0-.708 0L5 1.293 4.354.646a.5.5 0 0 0-.708 0L3 1.293 2.354.646zm-.217 1.198.51.51a.5.5 0 0 0 .707 0L4 1.707l.646.647a.5.5 0 0 0 .708 0L6 1.707l.646.647a.5.5 0 0 0 .708 0L8 1.707l.646.647a.5.5 0 0 0 .708 0L10 1.707l.646.647a.5.5 0 0 0 .708 0L12 1.707l.646.647a.5.5 0 0 0 .708 0l.509-.51.137.274V15H2V2.118l.137-.274z"/>
+</svg>
 					<div class="d-flex flex-column justify-content-center align-items-center">
 						<em class="card-text p-0 m-0">Numero de ventas realizadas:</em>
 						<b th:text=${cantVent} class="h4"></b>
 					</div>
 				</div>
 			</div>
-		<!--  	<div class="card" style="max-width: 18rem;">
-				<div class="card-header">RECLAMOS</div>
-				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="150" height="80" fill="currentColor"
-						class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
-						<path
-							d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z" />
-						<path
-							d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z" />
-					</svg>
-					<div class="d-flex flex-column justify-content-center align-items-center">
-						<em class="card-text p-0 m-0">Numero de reclamos registrados:</em>
-						<b th:text=${cantRecl} class="h4"></b>
-					</div>
-				</div>
-			</div>
-			
-			<div class="card" style="max-width: 18rem;">
-				<div class="card-header">POSTULANTES</div>
-				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" fill="currentColor"
-						class="bi bi-people-fill" viewBox="0 0 16 16">
-						<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-						<path fill-rule="evenodd"
-							d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
-						<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-					</svg>
-					<div class="d-flex flex-column justify-content-center align-items-center">
-						<em class="card-text p-0 m-0">Numero de postulantes registrados:</em>
-						<b th:text=${cantPost} class="h4"></b>
-					</div>
-				</div>
-			</div>
-			-->
 			<div class="card" style="max-width: 18rem;">
 				<div class="card-header">CLIENTES</div>
 				<div class="card-body d-flex gap-2 align-items-center">
-					<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" fill="currentColor"
-						class="bi bi-people-fill" viewBox="0 0 16 16">
-						<path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-						<path fill-rule="evenodd"
-							d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z" />
-						<path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
-					</svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+  <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+</svg>
 					<div class="d-flex flex-column justify-content-center align-items-center">
 						<em class="card-text p-0 m-0">Numero de clientes registrados:</em>
 						<b th:text=${cantCli} class="h4"></b>
 					</div>
 				</div>
 			</div>
-
 		</section>
+
 	</main>
+	
+	
+    <script th:inline="javascript">
+        var ventasPorDia = /*[[${ventasPorDia}]]*/ {};
+
+        var fechas = Object.keys(ventasPorDia);
+        var numeroVentas = Object.values(ventasPorDia);
+
+        Highcharts.chart('grafico', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Numero de Ventas por Dia'
+            },
+            xAxis: {
+                categories: fechas,
+                title: {
+                    text: 'Fechas'
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Numero de Ventas'
+                }
+            },
+            series: [{
+                name: 'Ventas',
+                data: numeroVentas
+            }]
+        });
+    </script>
 	<!-- JS principal -->
 	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->
@@ -235,273 +251,32 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
-	<script th:inline="javascript" th:if="${MENSAJE!=null}">
-		let msj;
-		msj =/*[[${MENSAJE}]]*/
-			toastr.success(msj, toastr.options = {
-				"timeOut": "2000",
-				"positionClass ": " toast-top-right ",
-			});
-	</script>
-	<script th:inline="javascript">
-		let usuarios;
-		usuarios = /*[[${usuarios}]]*/
-			console.log(usuarios)
-	</script>
-	<script>
-		let idUsu = 0
-		let idCiudad = 0;
-		let idDistrito = 0;
-		function setFormSaveEmpty() {
-			$("#idId").val(0);
-			$("#idNombre").val("");
-			$("#idApellido").val("");
-			$("#idDni").val("");
-			$("#idCorreo").val("");
-			$("#idCelular").val("");
-			$("#idFechNac").val("");
-			$("#idEstado").val(1);
-			$("#idTipoUsuario").val(0);
-			$("#idRol").val(0);
-			$("#idDepartamento").val(0);
-			$("#idCiudad").empty().append("<option  value='0'>[Seleccione Ciudad]</option>");
-			$("#idCiudad").val(0);
-			$("#idDistrito").empty().append("<option value='0'>[Seleccione Distrito]</option>");
-			$("#idDistrito").val(0);
-			$("#idDireccion").val("");
-			idCiudad = 0;
-			idDistrito = 0;
-			idUsu = 0
-		}
-		//DatePicker ??
-		$(function () {
-			$('#idFechNac').datepicker({
-				'format': 'yyyy-mm-dd',
-				'autoclose': true
-			});
+  	<script th:inline="javascript">
+    // Obtener los datos pasados desde el controlador
+    var productos = /*[[${productos}]]*/ [];
 
-		});
-		//Validaciones de Formulario
-		$(document).ready(function () {
-			$('#tableMantenimiento').DataTable();
-			$('#modalMantenimiento')
-				.on('hidden.bs.modal', function () {
-					$("#formMantenimiento").bootstrapValidator('resetForm', true);
-					setFormSaveEmpty();
-				})
-			$('#formMantenimiento').bootstrapValidator({
-				fields: {
-					nombre: {
-						validators: {
-							notEmpty: {
-								message: 'Campo nombre es obligatorio'
-							},
-							regexp: {
-								regexp: /^[a-z0-9A-Z\s+]{1,}$/,
-								message: "El nombre debe ser alfanumerico"
-							}
-						}
-					},
-					apellido: {
-						validators: {
-							notEmpty: {
-								message: 'Campo apellido es obligatorio'
-							},
-							regexp: {
-								regexp: /^[a-z0-9A-Z\s+]{1,}$/,
-								message: "El apellido debe ser alfanumerico"
-							}
-						}
-					},
-					correo: {
-						validators: {
-							callback: {
-								message: 'Este correo ya ha sido registrado',
-								callback: function (value, validator) {
-									let valid = true
-									usuarios.forEach(usuario => {
-										if ((usuario.id).toString() === idUsu) {
-											//valid= true
-											if (value === usuario.correo) {
-												valid = true
-											}
-										}
-										else if (value === usuario.correo) {
-											valid = false
-										}
-									});
+    // Crear los datos necesarios para el gráfico de pastel
+    var chartData = productos.map(function(producto) {
+        return {
+            name: producto.nombre,
+            y: producto.stock
+        };
+    });
 
-									return (valid)
-								}
-
-							},
-							notEmpty: {
-								message: 'Campo correo es obligatorio'
-							},
-							emailAddress: {
-								message: "El formato del correo es incorrecto"
-							}
-						}
-					},
-					dni: {
-						validators: {
-							notEmpty: {
-								message: 'Campo dni es obligatorio'
-							},
-							regexp: {
-								regexp: /^[0-9]{8}$/,
-								message: "Debe contener 8 digitos"
-							}
-						}
-					},
-					phone: {
-						validators: {
-							notEmpty: {
-								message: 'Campo celular es obligatorio'
-							},
-							regexp: {
-								regexp: /^[0-9]{9}$/,
-								message: "Debe contener 9 digitos"
-							}
-						}
-					},
-					tipoUsuario: {
-						validators: {
-							callback: {
-								message: 'Es necesario escoger un Tipo',
-								callback: function (value, validator) {
-									//console.log(value,validator)										
-									return (value !== "0")
-								}
-
-							}
-						}
-					},
-					rol: {
-						validators: {
-							callback: {
-								message: 'Es necesario escoger un Rol',
-								callback: function (value, validator) {
-									//console.log(value,validator)										
-									return (value !== "0")
-								}
-
-							}
-						}
-					},
-					fechaNacimiento: {
-						//selector:'#usr1',   
-						validators: {
-							notEmpty: {
-								message: 'Seleccione fecha '
-							},
-							date: {
-								format: 'YYYY-MM-DD',
-								message: 'The format is YYYY-MM-DD'
-							},
-							callback: {
-								message: 'Tienes que ser mayor de edad',
-								callback: function (value, validator) {
-									if (value !== "") {
-										let fechaNac = new Date(value);
-										let fechaHoy = new Date();
-										let diferencia = fechaHoy.getTime() - fechaNac.getTime();
-										if (diferencia > 567648000000) {
-											return true;
-										}
-									}
-									return (false)
-								}
-
-							}
-						}
-					},
-
-
-				}
-			})
-		});
-		//Acciones
-		//Boton Editar
-		$(document).on("click", ".btn-editar", function () {
-			idUsu = $(this).parents("tr").find("td")[0].innerHTML;
-			$.get("buscar?id=" + idUsu, function (response) {
-				$("#idId").val(response.id);
-				$("#idNombre").val(response.nombre);
-				$("#idApellido").val(response.apellido);
-				$("#idDni").val(response.dni);
-				$("#idCorreo").val(response.correo);
-				$("#idCelular").val(response.celular);
-				$("#idFechNac").val(response.fechaNac);
-				$("#idEstado").val(response.estado);
-				$("#idTipoUsuario").val(response.tipoUsuario.id);
-				$("#idRol").val(response.rol.id);
-				$("#idDireccion").val(response.direccion);
-				if (response.departamento === null) $("#idDepartamento").val(0);
-				else {
-					$("#idDepartamento").val(response.departamento.id);
-					if (response.ciudad === null) $("#idCiudad").val(0);
-					else {
-						idCiudad = response.ciudad.id;
-						if (response.distrito === null) $("#idDistrito").val(0);
-						else idDistrito = response.distrito.id;
-					}
-					$("#idDepartamento").trigger("change");
-				}
-			})
-		});
-		//Boton Eliminar
-		$(document).on("click", ".btn-eliminar", function () {
-			idUsu = $(this).parents("tr").find("td")[0].innerHTML;
-			alertify.confirm("Confirmacion", "Desea eliminar al Usuario?",
-				function () {
-					window.location = "eliminar?id=" + idUsu;
-				},
-				function () {
-					//alertify.error('Cancel');
-					console.log("cancelo Operacion")
-				});
-		})
-		//ComboBox
-		$(document).on("change", "#idDepartamento", function () {
-			let codDep = $(this).val();
-			console.log(codDep);
-			if (codDep === "0") {
-				$("#idCiudad").empty();
-				$("#idCiudad").append("<option  value='0'>[Seleccione Ciudad]</option>");
-				$("#idDistrito").empty()
-				$("#idDistrito").append("<option value='0'>[Seleccione Distrito]</option>");
-			} else {
-				$.get(`buscarPorDepartamento?id=${codDep}`, function (response) {
-					$("#idCiudad").empty();
-					$("#idCiudad").append("<option  value='0'>[Seleccione Ciudad]</option>");
-					$.each(response, function (index, item) {
-						$("#idCiudad").append("<option value='" + item.id + "'>" + item.nombre + "</option>");
-					})
-					$("#idCiudad").val(idCiudad);
-					$("#idCiudad").trigger("change");
-				})
-			}
-		})
-		$(document).on("change", "#idCiudad", function () {
-			let codCiu = $(this).val();
-			if (codCiu === "0" || codCiu == null) {
-				$("#idDistrito").empty()
-				$("#idDistrito").append("<option value='0'>[Seleccione Distrito]</option>");
-			}
-			else {
-				$.get("buscarPorCiudad?id=" + codCiu, function (response) {
-					$("#idDistrito").empty()
-					$("#idDistrito").append("<option value='0'>[Seleccione Distrito]</option>");
-					$.each(response, function (index, item) {
-						$("#idDistrito").append("<option value='" + item.id + "'>" + item.nombre + "</option>");
-					})
-					$("#idDistrito").val(idDistrito);
-				})
-			}
-
-		})	
-	</script>
+    // Crear el gráfico de pastel utilizando Highcharts
+    Highcharts.chart('chartContainer', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Reporte de productos'
+        },
+        series: [{
+            name: 'Stock',
+            data: chartData
+        }]
+    });
+</script>
 </body>
 
 </html>

@@ -1,7 +1,12 @@
 package com.cibertec.saludo.controllers;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,13 +16,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.cibertec.saludo.entity.Categoria;
-import com.cibertec.saludo.entity.Cliente;
-import com.cibertec.saludo.entity.Url;
-import com.cibertec.saludo.entity.Marca;
-import com.cibertec.saludo.entity.Producto;
-import com.cibertec.saludo.entity.Usuario;
-import com.cibertec.saludo.entity.Venta;
+import com.cibertec.saludo.models.Categoria;
+import com.cibertec.saludo.models.ChartData;
+import com.cibertec.saludo.models.Cliente;
+import com.cibertec.saludo.models.Marca;
+import com.cibertec.saludo.models.Producto;
+import com.cibertec.saludo.models.Url;
+import com.cibertec.saludo.models.Usuario;
+import com.cibertec.saludo.models.Venta;
 import com.cibertec.saludo.services.CategoriaService;
 import com.cibertec.saludo.services.ClienteService;
 import com.cibertec.saludo.services.MarcaService;
@@ -61,7 +67,15 @@ public class InicioController {
 		int cantMar = categorias.size();
 		List<Venta> ventas = serVentas.listarPedidos();
 		int cantVent= ventas.size();
+		
+		//mostrar ventas por diaMap<String, Integer> ventasPorDia = new HashMap<>();
+		 Map<String, Integer> ventasPorDia = obtenerVentasPorDia(ventas);
+	        model.addAttribute("ventasPorDia", ventasPorDia);
+        // Pasar los datos a la vista
+        model.addAttribute("ventasPorDia", ventasPorDia);
 
+		model.addAttribute("productos", productos);
+		model.addAttribute("ventas", ventas);
 		model.addAttribute("cantCli", cantCli);
 		model.addAttribute("cantUsu", cantUsu);
 		model.addAttribute("cantPro", cantPro);
@@ -98,4 +112,23 @@ public class InicioController {
 		model.addAttribute("cantVent",cantVent);
 		return "menu_principal";
 	}
+	
+	private Map<String, Integer> obtenerVentasPorDia(List<Venta> ventas) {
+        Map<String, Integer> ventasPorDia = new HashMap<>();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        for (Venta venta : ventas) {
+            String fecha = dateFormat.format(venta.getFecha());
+
+            if (ventasPorDia.containsKey(fecha)) {
+                int cantidadVentas = ventasPorDia.get(fecha);
+                ventasPorDia.put(fecha, cantidadVentas + 1);
+            } else {
+                ventasPorDia.put(fecha, 1);
+            }
+        }
+
+        return ventasPorDia;
+    }
 }

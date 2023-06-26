@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.DistritoRepository;
-import com.cibertec.saludo.entity.Distrito;
+import com.cibertec.saludo.models.Distrito;
+import com.cibertec.saludo.repos.DistritoRepository;
 
 @Service
 public class DistritoService {

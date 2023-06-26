@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.DetallePedidoRepository;
-import com.cibertec.saludo.dao.VentaRepository;
-import com.cibertec.saludo.entity.DetalleVenta;
-import com.cibertec.saludo.entity.Venta;
+import com.cibertec.saludo.models.DetalleVenta;
+import com.cibertec.saludo.models.Venta;
+import com.cibertec.saludo.repos.DetallePedidoRepository;
+import com.cibertec.saludo.repos.VentaRepository;
 
 @Service
 public class VentaService {

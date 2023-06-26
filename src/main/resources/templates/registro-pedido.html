@@ -2,67 +2,81 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="ISO-8859-1">
-	<title>SISTEMA PROYECTO</title>
-	<!-- Bootstrap CSS -->
-	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
-	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-		integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
-	<!-- Bootstrap CSS -->
-	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
-	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
-	<style type="text/css">
-		.card-header {
-			color: #fff;
-			background: #428bca;
-			display: flex;
-			/*justify-content: center;*/
+<meta charset="ISO-8859-1">
+<title>SISTEMA PROYECTO</title>
+<!-- Bootstrap CSS -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
+<!-- Bootstrap CSS -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+<style type="text/css">
+.card-header {
+	color: #fff;
+	background: #428bca;
+	display: flex;
+	/*justify-content: center;*/
+}
 
-		}
+.modal-header {
+	color: #fff;
+	background: #428bca;
+	display: flex;
+	justify-content: center;
+}
 
-		.modal-header {
-			color: #fff;
-			background: #428bca;
-			display: flex;
-			justify-content: center;
+#modalCliente {
+	z-index: 10050 !important;
+}
 
-		}
-		#modalCliente{
-			z-index:10050 !important;
-		}
-		#modalMantenimiento{
-			z-index:9999 !important;
-		}
-		.modal-lg,
-		.modal-xl {
-			max-width: 1200px;
-			max-height: 600px;
-		}
+#modalMantenimiento {
+	z-index: 9999 !important;
+}
 
-		.dataTables_length,
-		.dataTables_info {
-			display: none;
-		}
+.modal-lg, .modal-xl {
+	max-width: 1200px;
+	max-height: 600px;
+}
 
-		.table-lista-modal {
-			height: 25vh !important;
-			overflow: auto !important;
-		}
-	</style>
+.dataTables_length, .dataTables_info {
+	display: none;
+}
+
+.table-lista-modal {
+	height: 25vh !important;
+	overflow: auto !important;
+}
+</style>
 </head>
 
 <body>
@@ -71,95 +85,108 @@
 		<div class="mt-5 pt-3">
 			<div class="modal-dialog modal-dialog-centered modal-lg">
 				<div class="modal-content">
-					<div class="modal-header bg-primary">
-						<h5 class="modal-title text-white" id="staticBackdropLabel"><i class="bi bi-circle-fill"></i>
-							Nueva Venta</h5>						
+					<div class="modal-header bg-dark">
+						<h5 class="modal-title text-white" id="staticBackdropLabel">
+							<i class="bi bi-bag-check-fill"></i> NUEVO PEDIDO
+						</h5>
 					</div>
 					<div class="modal-body">
-						<form id="formMantenimiento" action="grabar" method="post" class="row g-3">
+						<form id="formMantenimiento" action="grabar" method="post"
+							class="row g-3">
 							<div class="form-group col-md-2">
 								<label for="validationCustomUsername" class="form-label fw-bold">Id</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-hash"></i></i></span>
-									<input type="text" class="form-control" name="id" id="idId" readonly value="0">
+										class="bi bi-hash"></i></i></span> <input type="text"
+										class="form-control" name="id" id="idId" readonly value="0">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="validationCustomUsername" class="form-label fw-bold">Fecha actual</label>
+								<label for="validationCustomUsername" class="form-label fw-bold">Fecha
+									actual</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-file-text-fill"></i></span>
-									<input type="text" class="form-control" name="fechaActual" id="idFechaActual" readonly>
+										class="bi bi-file-text-fill"></i></span> <input type="text"
+										class="form-control" name="fechaActual" id="idFechaActual"
+										readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-6">
 								<label for="validationCustomUsername" class="form-label fw-bold">Usuario</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-file-text-fill"></i></span>
-									<input type="text" class="form-control" name="fechaActual" id="idUsuario" th:value="${USUARIO.nombre}"  readonly >
+										class="bi bi-person-check-fill"></i></span> <input type="text"
+										class="form-control" name="fechaActual" id="idUsuario"
+										th:value="${USUARIO.nombre}" readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="validationCustomUsername" class="form-label fw-bold">Fecha de entrega</label>
+								<label for="validationCustomUsername" class="form-label fw-bold">Fecha
+									de entrega</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-file-text-fill"></i></span>
-									<input type="text" class="form-control" name="fechaEntrega" id="idFechaEntrega">
+										class="bi bi-file-text-fill"></i></span> <input type="text"
+										class="form-control" name="fechaEntrega" id="idFechaEntrega">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="validationCustomUsername" class="form-label fw-bold">Precio de envio</label>
+								<label for="validationCustomUsername" class="form-label fw-bold">Precio
+									de envio</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-currency-dollar"></i></span>
-									<input type="text" class="form-control" name="precioEnvio" id="idPrecioEnvio">
+										class="bi bi-cash-coin"></i></span> <input type="text"
+										class="form-control" name="precioEnvio" id="idPrecioEnvio">
 								</div>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="validationCustomUsername" class="form-label fw-bold">Estado</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-exclamation-circle-fill"></i></span>
-									<select class="form-select form-control" name="estado" id="idEstado">
+										class="bi bi-exclamation-circle-fill"></i></span> <select
+										class="form-select form-control" name="estado" id="idEstado">
 										<option value="1">Activo</option>
 										<option value="0">Desactivo</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="validationCustomUsername" class="form-label fw-bold">Id Cliente</label>
+								<label for="validationCustomUsername" class="form-label fw-bold">Id
+									Cliente</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-file-text-fill"></i></span>
-									<input type="text" class="form-control" name="idCliente" id="idCliente"  readonly >
+										class="bi bi-file-text-fill"></i></span> <input type="text"
+										class="form-control" name="idCliente" id="idCliente" readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-4">
 								<label for="validationCustomUsername" class="form-label fw-bold">Cliente</label>
 								<div class="input-group has-validation">
 									<span class="input-group-text" id="inputGroupPrepend"><i
-											class="bi bi-currency-dollar"></i></span>
-									<input type="text" class="form-control" name="nombreCliente" id="idNombreCliente"  readonly >
+										class="bi bi-person-check-fill"></i></span> <input type="text"
+										class="form-control" name="nombreCliente" id="idNombreCliente"
+										readonly>
 								</div>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="validationCustomUsername" class="form-label fw-bold">Buscar cliente</label>
-							<button  type="button" class="form-control btn btn-primary" 
+								<label for="validationCustomUsername" class="form-label fw-bold">Buscar
+									cliente</label>
+								<button type="button" class="form-control btn btn-warning"
 									data-toggle="modal" data-target="#modalCliente">
-									Buscar</button>	
+									Buscar</button>
 							</div>
 							<div class="form-group  col-md-6 table-lista-modal">
-								<label for="exampleInputEmail1" class="mt-3"><b>Listado de Productos</b></label>
-								<table id="tableMantenimiento" class="mt-3 mx-auto table align-middle table-hover">
+								<label for="exampleInputEmail1" class="mt-3"><b>Listado
+										de Productos</b></label>
+								<table id="tableMantenimiento"
+									class="mt-3 mx-auto table align-middle table-hover">
 									<thead class="table-dark">
 										<tr>
 											<th width="5%">Id</th>
 											<th width="75%">Nombre</th>
 											<th width="10%">Precio</th>
 											<th width="10%">Cantidad</th>
-											<th class="text-center"><i class="bi bi-plus-circle-fill"></i></th>
+											<th class="text-center"><i
+												class="bi bi-plus-circle-fill"></i></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -168,16 +195,18 @@
 											<td th:text="${row.nombre}"></td>
 											<td th:text="${row.precio}"></td>
 											<td><input type="number" class="form-control"
-													th:attrappend="id=${'idCantidad' + row.id}" value="1" name="cantidad"></td>
+												th:attrappend="id=${'idCantidad' + row.id}" value="1"
+												name="cantidad"></td>
 											<td><a class="btn btn-success btn-adicionar"><i
-														class="bi bi-plus-circle-fill"></i></a></td>
+													class="bi bi-plus-circle-fill"></i></a></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 							<div class="form-group col-md-6 table-lista-modal">
 								<label for="exampleInputEmail1"><b>Detalle</b></label>
-								<table id="tableDetalle" class="table table-striped table-bordered">
+								<table id="tableDetalle"
+									class="table table-striped table-bordered">
 									<thead>
 										<tr>
 											<th width="5%">Id</th>
@@ -192,10 +221,11 @@
 								</table>
 							</div>
 							<div class="modal-footer">
-								<button type="submit" class="btn btn-success btn-guardar"><i class="bi bi-save2"></i>
-									Guardar</button>
+								<button type="submit" class="btn btn-success btn-guardar">
+									<i class="bi bi-save2"></i> Guardar
+								</button>
 								<a href="Venta_Pedido" class="btn btn-danger"><i
-										class="bi bi-x-circle-fill"></i> Cerrar</a>
+									class="bi bi-x-circle-fill"></i> Cerrar</a>
 							</div>
 						</form>
 					</div>
@@ -204,50 +234,52 @@
 		</div>
 		<!--fin modal PARA REGISTRAR-->
 		<!-- begin #modal-dialog : MODAL CLIENTE-->
-			<div class="modal fade modal-lg" id="modalCliente" data-backdrop="static" 
-							data-keyboard="false"  
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" >					
-							<div class="modal-content">
-								<div class="modal-header bg-blue-darker">
-									<h4 class="modal-title text-white">Cliente</h4>
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-								</div>
-								<div class="modal-body">
-										<div class="row">
-												<div class="form-group has-feedback col-md-6">
-													<label for="exampleInputEmail1" class="text-center"><b>Apellidos</b></label>
-													<input type="text" class="form-control" id="idApellido" name="apellido">
-												</div>	
-												<div class="form-group has-feedback col-md-6">
-													<label for="exampleInputEmail1" class="text-center"><b>Consulta</b></label>
-													<button id="btn-buscar-cliente" type="button" class="form-control btn btn-primary">
-														Buscar
-													</button>
-												</div>
-												<div class="form-group has-feedback col-md-12">	
-													<label for="exampleInputEmail1" class="mt-3"><b>Listado de Clientes</b></label>
-													<table id="tableClientes" class="table table-striped table-bordered mt-3">
-												        <thead>
-												            <tr>
-												                <th width="5%">Id</th>
-												                <th width="95%">Nombre</th>
-																<th width="95%">Apellido</th>
-																<th width="95%">Celular</th>
-												                <th><i class='bi bi-info-circle-fill'></i></th>
-												            </tr>
-												        </thead>
-												        <tbody>
-		
-												        </tbody>
-												    </table>
-											    </div>	
-										</div>																						
-								</div>
+		<div class="modal fade modal-lg" id="modalCliente"
+			data-backdrop="static" data-keyboard="false"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-dark">
+						<h4 class="modal-title text-white">Cliente</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-group has-feedback col-md-6">
+								<label for="exampleInputEmail1" class="text-center"><b>Apellidos</b></label>
+								<input type="text" class="form-control" id="idApellido"
+									name="apellido">
+							</div>
+							<div class="form-group has-feedback col-md-6">
+								<label for="exampleInputEmail1" class="text-center"><b>Consulta</b></label>
+								<button id="btn-buscar-cliente" type="button"
+									class="form-control btn btn-secondary">Buscar</button>
+							</div>
+							<div class="form-group has-feedback col-md-12">
+								<label for="exampleInputEmail1" class="mt-3"><b>Listado
+										de Clientes</b></label>
+								<table id="tableClientes"
+									class="table table-striped table-bordered mt-3">
+									<thead>
+										<tr>
+											<th width="5%">Id</th>
+											<th width="95%">Nombre</th>
+											<th width="95%">Apellido</th>
+											<th width="95%">Celular</th>
+											<th><i class='bi bi-info-circle-fill'></i></th>
+										</tr>
+									</thead>
+									<tbody>
+
+									</tbody>
+								</table>
 							</div>
 						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- FIN Modal CLIENTE-->	
+		<!-- FIN Modal CLIENTE-->
 
 	</main>
 	<!-- JS principal -->
@@ -255,27 +287,37 @@
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script th:src="@{/resources/js/bootstrap.bundle.min.js}"></script>
 	<!-- JS para la tabla -->
-	<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 	<!--JS para validar  -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
 	<!--JS para Calendario  -->
 	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
 	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
 	<!-- JS de Bootstrap -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 		crossorigin="anonymous"></script>
 	<!-- JS de Bootstrapvalidator -->
-	<script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
+	<script
+		src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
 	<!-- JS de la tabla -->
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 	<!-- JS ICONOS -->
-	<script src="https://kit.fontawesome.com/08aaa156fb.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/08aaa156fb.js"
+		crossorigin="anonymous"></script>
 
 	<script th:inline="javascript" th:if="${MENSAJE!=null}">
 		let msj;
@@ -285,7 +327,7 @@
 				"positionClass ": " toast-top-right ",
 			});
 	</script>
-		<script>
+	<script>
 		function setFormEdit() {
 			$("#idId").val(0);
 			$("#idFechaActual").val("");

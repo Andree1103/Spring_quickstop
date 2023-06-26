@@ -12,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cibertec.saludo.entity.Categoria;
-import com.cibertec.saludo.entity.Cliente;
-import com.cibertec.saludo.entity.Marca;
-import com.cibertec.saludo.entity.Venta;
-import com.cibertec.saludo.entity.Producto;
-import com.cibertec.saludo.entity.Usuario;
+import com.cibertec.saludo.models.Categoria;
+import com.cibertec.saludo.models.Cliente;
+import com.cibertec.saludo.models.Marca;
+import com.cibertec.saludo.models.Producto;
+import com.cibertec.saludo.models.Usuario;
+import com.cibertec.saludo.models.Venta;
 import com.cibertec.saludo.services.CategoriaService;
 import com.cibertec.saludo.services.ClienteService;
 import com.cibertec.saludo.services.MarcaService;

@@ -24,6 +24,7 @@
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
 	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.10.0/jspdf.umd.min.js"></script>
 	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
 	<style type="text/css">
 		.card-header {
@@ -75,8 +76,8 @@
 					<i class="bi bi-plus-circle-fill"></i> Registrar
 				</a>
 			</div>
-			<table id="tableMantenimiento" class="mt-3 mx-auto table table-striped table-dark">
-				<thead>
+			<table id="tableMantenimiento" class="mt-3 mx-auto table align-middle table-hover">
+				<thead class="table-dark">
 					<tr>
 						<th>Id</th>
 						<th>Usuario</th>
@@ -88,7 +89,9 @@
 				</thead>
 				<tbody>
 					<tr th:each="row:${ventas}">
-						<td th:text="${row.id}"></td>
+						<td >
+						<a class= "btn btn-info btn-xs" th:href="@{pedido/} + ${row.id}" th:text="${row.id}"></a>
+						</td>
 						<td th:text="${row.usuario.nombre}"></td>
 						<td th:text="${row.cliente.nombre_cli}"></td>
 						<td th:text="${row.fecha}"></td>
@@ -140,7 +143,7 @@
 	</script>
 	<script>
 	$(document).on("click","#btn-reporte",function(){
-			window.open("http://localhost:8091/Pedidos/reporte","_black")						
+			window.open("http://localhost:8080/Pedidos/reporte","_black")						
 		})
 	</script>
 </body>

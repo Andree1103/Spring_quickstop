@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.ClienteRepository;
-import com.cibertec.saludo.entity.Cliente;
+import com.cibertec.saludo.models.Cliente;
+import com.cibertec.saludo.repos.ClienteRepository;
 
 
 @Service

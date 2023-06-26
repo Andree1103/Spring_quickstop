@@ -2,58 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="ISO-8859-1">
-	<title>SISTEMA PROYECTO</title>
-	<!-- Bootstrap CSS -->
-	<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}" rel="stylesheet">
-	<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}" rel="stylesheet">
-	<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
-	<link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.css}">
-	<link rel="stylesheet" th:href="@{/resources/alertifyjs/css/alertify.min.css}">
-	<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
+<meta charset="ISO-8859-1">
+<title>SISTEMA PROYECTO</title>
+<!-- Bootstrap CSS -->
+<link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/resources/css/dataTables.bootstrap5.min.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/datepicker/bootstrap-datepicker.css}"
+	rel="stylesheet">
+<link th:href="@{/resources/css/bootstrap-icons.css}" rel="stylesheet">
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.css}">
+<link rel="stylesheet"
+	th:href="@{/resources/alertifyjs/css/alertify.min.css}">
+<link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
 </head>
 <style>
-		.container {
-			max-width: 800px;
-		}
+    .containers {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 20px;
+    }
 
-		.card {
-			margin-bottom: 20px;
-			padding: 20px;
-			border-radius: 10px;
-			box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-		}
+    @media screen and (max-width: 768px) {
+        .container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    }
 
-		.card img {
-			max-width: 100%;
-			height: auto;
-			margin-bottom: 10px;
-		}
+    @media screen and (max-width: 480px) {
+        .container {
+            grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+        }
+    }
 
-		.card h3 {
-			margin-bottom: 5px;
-		}
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-		.card p {
-			margin-bottom: 10px;
-		}
+    .card img {
+        width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-		.btn-registrar {
-			margin-top: 20px;
-		}
+    .card h3 {
+        margin-top: 10px;
+        font-size: 20px;
+    }
 
-		@media (max-width: 767px) {
-			.card {
-				padding: 10px;
-			}
+    .card p {
+        margin-top: 5px;
+        font-size: 16px;
+    }
 
-			.card h3 {
-				font-size: 18px;
-			}
-		}
-	</style>
+    .card a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #dc3545;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 3px;
+    }
+</style>
 </head>
 <body>
 	<!-- Navbar -->
@@ -62,27 +82,43 @@
 	<!-- Content -->
 	<div class="container mt-5 pt-2">
 		<section>
-			<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
-				<h3 class="text-center">MANTENIMIENTO PRODUCTOS</h3>
-				<button type="button" class="btn btn-primary btn-success btn-registrar" data-bs-toggle="modal"
-					data-bs-target="#modalMantenimiento">
-					<i class="bi bi-plus-circle-fill"></i> Registrar
-				</button>
+			<div
+				class="align-items-center mt-4 mb-3">
+				<h3 class="text-center" style="font-size: 36px; font-weight: bold;">Catalogo</h3>
 			</div>
-			<div>
-				<div th:each="row:${productos}" class="card">
-					<img th:src="@{'/images/' + ${row.imagen}}" th:alt="${row.imagen}">
-					<h3 th:text="${row.nombre}"></h3>
-					<p th:text="${row.descripcion}"></p>
-					<p th:text="${row.precio}"></p>
-					<p th:text="${row.stock}"></p>
-					<a class="btn btn-info btn-xs" th:href="@{detalle/} + ${row.id}">Info</a>
-				</div>
+				<div class="containers">
+					<div th:each="row:${productos}">
+						<div class="card">
+							<img th:src="@{'/images/' + ${row.imagen}}"
+								th:alt="${row.imagen}">
+							<h3 th:text="${row.nombre}"></h3>
+							<p th:text="'Precio : ' + 'S/'+${row.precio}"></p>
+							<p th:text="'Stock : ' + ${row.stock}"></p>
+							<a class="btn btn-danger btn-xs" th:href="@{detalle/} + ${row.id}">Mas Informacion</a>
+						</div>
+					</div>
 			</div>
+
 		</section>
 	</div>
 
-	<!-- JavaScript -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<!-- JS principal -->
+	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script th:src="@{/resources/js/bootstrap.bundle.min.js}"></script>
+	<!-- JS para la tabla -->
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script
+		src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+	<!--JS para validar  -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.0/js/bootstrapValidator.js"></script>
+	<!--JS para Calendario  -->
+	<script th:src="@{/resources/datepicker/bootstrap-datepicker.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.js}"></script>
+	<script th:src="@{/resources/alertifyjs/alertify.min.js}"></script>
 </body>
 </html>

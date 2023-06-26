@@ -39,6 +39,7 @@ create table tb_productos(
 	id int auto_increment primary key,
 	nombre varchar(80),
     descripcion varchar(200),
+    imagen varchar(255) null,
 	precio double,
     stock int,
     estado tinyint,
@@ -46,8 +47,9 @@ create table tb_productos(
     id_marca int references tb_marcas(id)
 );
 --
-insert into tb_productos values(null,'Coca Cola', 'Bebida Gasificada', 5.50, 50, 1, 1,1);
-insert into tb_productos values(null,'Mani Crocante', 'Mani cocido y frito por dentro', 2.50,50, 1, 2, 3);
+insert into tb_productos values(null,'Coca Cola', 'Bebida Gasificada','Productos.jpg',null, 5.50, 50, 1, 1,1);
+insert into tb_productos values(null,'Mani Crocante', 'Mani cocido y frito por dentro','Manicrocante.jpg',null, 2.50,50, 1, 2, 3);
+insert into tb_productos values(null, 'Triangulo Donofrio', 'Barra de chocolate', 'Triangulodonofrio.jpg', '2.5', '20', '1', '2', '4');
 
 /**************************FIN DE TABLAS DE PRODUCTOS**************************/
 --
@@ -182,11 +184,12 @@ create table tb_ventas(
 	fecha_entrega datetime,
 	precio_envio double,
     estado tinyint,
+    suma_total double,
     id_usu int references tb_usuario(id),
 	id_cli int references tb_cliente(id)
 );
 --
-insert into tb_ventas values(null,'2023/08/06','2022/08/26',3.00,1,1,1);
+/*insert into tb_ventas values(null,'2023/08/06','2022/08/26',3.00,1,1,1);
 --
 /****************************FIN DE TABLAS DE VENTA***********************/
 --
@@ -196,11 +199,12 @@ create table tb_detalle_ventas(
 	id int auto_increment primary key,
     cantidad int,
 	precio_unidad double,
-    id_ventas int references tb_ventas(id),
+    total double,
+    id_ventas int default 1 references tb_ventas(id)  ,
 	id_pro int references tb_producto(id)
 );
 
-insert into tb_detalle_ventas values(null,5,2.50,1,1);
+/*insert into tb_detalle_ventas values(null,5,2.50,1,1);
 /****************************FIN DE TABLAS DE DETALLE DE LA VENTA***********************/
 
 select * from tb_url;
@@ -208,11 +212,19 @@ select * from  tb_usuarios;
 select * from  tb_roles;
 select * from  tb_tipo_de_usuario;
 select * from  tb_productos;
+select * from tb_ventas;
 select * from  tb_detalle_ventas;
 select * from tb_categorias;
 
 select * from  tb_clientes;
 select * from  tb_ventas;
+
+SELECT v.id AS cod_venta, c.nombre_cli, p.nombre AS nomproductos, dv.cantidad, dv.precio_unidad, dv.total, v.suma_total
+FROM tb_ventas v
+INNER JOIN tb_clientes c ON v.id_cli = c.id
+INNER JOIN tb_detalle_ventas dv ON v.id = dv.id_ventas
+INNER JOIN tb_productos p ON dv.id_pro = p.id
+WHERE v.id = 3
 
 
 

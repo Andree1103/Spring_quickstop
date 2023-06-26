@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cibertec.saludo.dao.RolRepository;
-import com.cibertec.saludo.entity.Rol;
+import com.cibertec.saludo.models.Rol;
+import com.cibertec.saludo.repos.RolRepository;
 
 @Service
 public class RolService {
