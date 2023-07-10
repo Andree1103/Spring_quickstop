@@ -21,58 +21,90 @@
 <link th:href="@{/resources/css/estilos.css}" rel="stylesheet">
 </head>
 <style>
-    .containers {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        grid-gap: 20px;
-    }
+.containers {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 20px;
+}
 
-    @media screen and (max-width: 768px) {
-        .container {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-    }
+@media screen and (max-width: 768px) {
+	.container {
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	}
+}
 
-    @media screen and (max-width: 480px) {
-        .container {
-            grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
-        }
-    }
+@media screen and (max-width: 480px) {
+	.container {
+		grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+	}
+}
 
-    .card {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.card {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    .card img {
-        width: 100%;
-        max-height: 200px;
-        object-fit: cover;
-        border-radius: 5px;
-    }
+.card img {
+	width: 100%;
+	max-height: 200px;
+	object-fit: contain;
+	border-radius: 5px;
+}
 
-    .card h3 {
-        margin-top: 10px;
-        font-size: 20px;
-    }
+.card h3 {
+	margin-top: 10px;
+	font-size: 20px;
+}
 
-    .card p {
-        margin-top: 5px;
-        font-size: 16px;
-    }
+.card p {
+	margin-top: 5px;
+	font-size: 16px;
+}
 
-    .card a {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 8px 16px;
-        background-color: #dc3545;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 3px;
-    }
+.card a {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 8px 16px;
+	background-color: #dc3545;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 3px;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination li {
+    margin: 0 5px;
+  }
+
+  .pagination li a {
+    display: block;
+    padding: 8px;
+    background-color: #e0e0e0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  .pagination li a.active,
+  .pagination li a:hover {
+    background-color: #333;
+    color: #fff;
+  }
 </style>
 </head>
 <body>
@@ -82,26 +114,80 @@
 	<!-- Content -->
 	<div class="container mt-5 pt-2">
 		<section>
-			<div
-				class="align-items-center mt-4 mb-3">
+			<div class="align-items-center mt-4 mb-3">
 				<h3 class="text-center" style="font-size: 36px; font-weight: bold;">Catalogo</h3>
 			</div>
-				<div class="containers">
-					<div th:each="row:${productos}">
-						<div class="card">
-							<img th:src="@{'/images/' + ${row.imagen}}"
-								th:alt="${row.imagen}">
-							<h3 th:text="${row.nombre}"></h3>
-							<p th:text="'Precio : ' + 'S/'+${row.precio}"></p>
-							<p th:text="'Stock : ' + ${row.stock}"></p>
-							<a class="btn btn-danger btn-xs" th:href="@{detalle/} + ${row.id}">Mas Informacion</a>
-						</div>
+			<div class="containers">
+				<div th:each="row:${productos}">
+					<div class="card">
+						<img th:src="@{'/images/' + ${row.imagen}}" th:alt="${row.imagen}">
+						<h3 th:text="${row.nombre}"></h3>
+						<p th:text="'Precio : ' + 'S/'+${row.precio}"></p>
+						<p th:text="'Stock : ' + ${row.stock}"></p>
+						<a class="btn btn-danger btn-xs" th:href="@{detalle/} + ${row.id}">Mas
+							Informacion</a>
 					</div>
+				</div>
 			</div>
 
+			<div class="pagination-container">
+				<ul class="pagination" id="pagination"></ul>
+			</div>
 		</section>
 	</div>
 
+	<script>
+  var itemsPerPage = 9; // Número de elementos por página
+  var currentPage = 1; // Página actual
+  var items = document.querySelectorAll('.card');
+  var totalPages = Math.ceil(items.length / itemsPerPage);
+
+  // Mostrar elementos en la página actual
+  function showItems() {
+    var startIndex = (currentPage - 1) * itemsPerPage;
+    var endIndex = startIndex + itemsPerPage;
+
+    for (var i = 0; i < items.length; i++) {
+      if (i >= startIndex && i < endIndex) {
+        items[i].style.display = 'block';
+      } else {
+        items[i].style.display = 'none';
+      }
+    }
+  }
+
+  // Crear enlaces de paginación
+  function createPagination() {
+    var pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+
+    for (var i = 1; i <= totalPages; i++) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#';
+      a.textContent = i;
+
+      if (i === currentPage) {
+        a.className = 'active';
+      }
+
+      // Asignar evento al hacer clic en una página
+      a.addEventListener('click', function(event) {
+        event.preventDefault();
+        currentPage = parseInt(this.textContent);
+        showItems();
+        createPagination();
+      });
+
+      li.appendChild(a);
+      pagination.appendChild(li);
+    }
+  }
+
+  // Inicializar paginador
+  showItems();
+  createPagination();
+</script>
 	<!-- JS principal -->
 	<script th:src="@{/resources/js/jquery-3.5.1.js}"></script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Reporte de Venta</title>
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+}
+
+.invoice {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.invoice-header {
+	margin-bottom: 30px;
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	text-align: center;
+}
+
+.invoice-header h1 {
+	font-size: 28px;
+	margin: 0;
+	color: #333;
+}
+
+.invoice-info {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+}
+
+.invoice-info p {
+	margin: 0;
+	color: #777;
+}
+
+.customer-table {
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+
+.customer-table th, .customer-table td {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+.customer-table th {
+	background-color: #f2f2f2;
+	color: #333;
+}
+
+.customer-table td {
+	color: #333;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 30px;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #f2f2f2;
+	color: #333;
+}
+
+.total {
+	text-align: right;
+	font-size: 18px;
+	color: #333;
+}
+
+.note {
+	font-style: italic;
+	color: #777;
+}
+
+img {
+	width: 35px
+}
+</style>
+</head>
+<body>
+	<div class="invoice">
+		<div class="invoice-header">
+			<h1>Factura Qickstop</h1>
+			<img src="https://i.ibb.co/NjZQggG/logotienda.png" />
+		</div>
+		<div class="invoice-info">
+			<p>
+				Fecha Emision: <span th:text="${venta.fecha}"></span>
+			</p>
+			<p>
+				Fecha Actual: <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+			</p>
+			<p>
+				Factura #: <span th:text="${venta.id}"></span>
+			</p>
+		</div>
+		<div class="customer-info">
+			<h3>Facturación de :</h3>
+			<table class="customer-table">
+				<tr>
+					<td>Nombre cliente:</td>
+					<td
+						th:text="${venta.cliente.nombre_cli + ' ' + venta.cliente.apellido_cli}">[Nombre
+						cliente]</td>
+				</tr>
+				<tr>
+					<td>Dirección empresa:</td>
+					<td th:text="${venta.cliente.direccion_cli}">[Dirección
+						empresa]</td>
+				</tr>
+				<tr>
+					<td>Telefono:</td>
+					<td th:text="${venta.cliente.celular_cli}">[Tel empresa]</td>
+				</tr>
+			</table>
+		</div>
+		<h3>Descripción</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Cant.</th>
+					<th>Precio</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="detalle : ${detalles}">
+					<td th:text="${detalle.producto.nombre}"></td>
+					<td th:text="${detalle.cantidad}"></td>
+					<td th:text="${detalle.precio}"></td>
+					<td th:text="${detalle.total}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="total">
+			<p>
+				Importe Total: <span th:text="${venta.sumaTotal}"></span>
+			</p>
+		</div>
+		<p class="note">El monto de la factura no incluye el impuesto
+			sobre las ventas.</p>
+	</div>
+</body>
+</html>

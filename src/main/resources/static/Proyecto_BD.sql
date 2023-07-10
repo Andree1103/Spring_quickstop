@@ -15,7 +15,15 @@ create table tb_categorias(
 --
 insert into tb_categorias values(1,'Bebidas','Bebidas de diversos sabores');
 insert into tb_categorias values(2,'Snacks','Snacks de diversos sabores y gustos');
-
+insert into tb_categorias values(3, 'Cuidado Personal', 'Productos para el cuidado personal, como jabones y champús');
+insert into tb_categorias values(4, 'Panadería', 'Pan y productos de panadería frescos');
+insert into tb_categorias values(5, 'Lácteos', 'Productos lácteos como leche, yogur y queso');
+insert into tb_categorias values(6, 'Cuidado del Hogar', 'Productos de limpieza para el hogar, como detergentes y desinfectantes');
+insert into tb_categorias values(7, 'Snacks Saludables', 'Snacks y alimentos saludables, como frutas secas y barras de granola');
+insert into tb_categorias values(8, 'Cuidado de Mascotas', 'Productos para el cuidado y alimentación de mascotas, como comida y accesorios');
+insert into tb_categorias values(9, 'Papelería', 'Artículos de papelería, como cuadernos, bolígrafos y pegamento');
+insert into tb_categorias values(10, 'Conveniencia', 'Productos diversos para la conveniencia, como pilas, cargadores y adaptadores');
+select* from tb_categorias;
 /**************************FIN DE TABLAS DE CATEGORIA**************************/
 --
 --
@@ -25,14 +33,25 @@ create table tb_marcas(
 	nombre varchar(100),
 	descripcion varchar(200)
 );
+
+select * from tb_marcas;
 --
 insert into tb_marcas values(null,'COCA COLA COMPANY','Marca de procedencia extranjera');
 insert into tb_marcas values(null,'PEPSI CORPORATION','Marca de procedencia extranjera');
 insert into tb_marcas values(null,'KARINTO','Empresa con 20 años de experiencia');
 insert into tb_marcas values(null,'FRITOLAY','Empresa con 10 años de experiencia');
+insert into tb_marcas values(null, 'Dove', 'Marca reconocida de productos de cuidado personal');
+insert into tb_marcas values(null, 'Bimbo', 'Marca líder en productos de panadería');
+insert into tb_marcas values(null, 'Nestlé', 'Marca reconocida de productos lácteos');
+insert into tb_marcas values(null, 'Clorox', 'Marca líder en productos de limpieza para el hogar');
+insert into tb_marcas values(null, 'Nature Valley', 'Marca especializada en snacks saludables');
+insert into tb_marcas values(null, 'Pedigree', 'Marca reconocida en productos para mascotas');
+insert into tb_marcas values(null, 'Pilot', 'Marca reconocida en productos de papelería');
+insert into tb_marcas values(null, 'Duracell', 'Marca líder en productos de pilas y baterías');
 
 /**************************FIN DE TABLAS DE MARCAS**************************/
 --
+select * from tb_marcas;
 --
 /**************************INICIO DE TABLAS DE PRODUCTOS**************************/
 create table tb_productos(
@@ -47,9 +66,21 @@ create table tb_productos(
     id_marca int references tb_marcas(id)
 );
 --
-insert into tb_productos values(null,'Coca Cola', 'Bebida Gasificada','Productos.jpg',null, 5.50, 50, 1, 1,1);
-insert into tb_productos values(null,'Mani Crocante', 'Mani cocido y frito por dentro','Manicrocante.jpg',null, 2.50,50, 1, 2, 3);
+insert into tb_productos values(null,'Coca Cola', 'Bebida Gasificada','Productos.jpg', 5.50, 50, 1, 1,1);
+insert into tb_productos values(null,'Mani Crocante', 'Mani cocido y frito por dentro','Manicrocante.jpg', 2.50,50, 1, 2, 3);
 insert into tb_productos values(null, 'Triangulo Donofrio', 'Barra de chocolate', 'Triangulodonofrio.jpg', '2.5', '20', '1', '2', '4');
+insert into tb_productos values(null, 'Sprite', 'Bebida refrescante sabor lima-limón', 'sprite.jpg', 3.99, 50, 1, 1, 1);
+insert into tb_productos values(null, 'Cheetos', 'Snack de maíz con sabor a queso', 'cheetos.jpg', 2.49, 40, 1, 2, 4);
+insert into tb_productos values(null, 'Shampoo Dove', 'Shampoo para cabello suave y sedoso', 'shampoo_dove.jpg', 5.99, 30, 1, 3, 5);
+insert into tb_productos values(null, 'Pan Blanco Bimbo', 'Pan blanco suave y fresco', 'pan_blanco_bimbo.jpg', 1.49, 60, 1, 4, 6);
+insert into tb_productos values(null, 'Yogur de Fresa', 'Yogur con sabor a fresa', 'yogur_fresa.jpg', 0.99, 70, 1, 5, 7);
+insert into tb_productos values(null, 'Limpiador Multiusos Clorox', 'Limpiador para superficies', 'limpiador_clorox.jpg', 4.49, 25, 1, 6, 8);
+insert into tb_productos values(null, 'Barra de Granola con Frutas', 'Barra de granola con frutas deshidratadas', 'barra_granola_frutas.jpg', 1.79, 55, 1, 7, 9);
+insert into tb_productos values(null, 'Comida para Perros Pedigree', 'Comida balanceada para perros', 'comida_perros_pedigree.jpg', 6.99, 35, 1, 8, 10);
+insert into tb_productos values(null, 'Marcador Highlighter Pilot', 'Marcador fluorescente', 'marcador_pilot.jpg', 1.29, 40, 1, 10, 11);
+insert into tb_productos values(null, 'Baterías AA Duracell', 'Pilas alcalinas tamaño AA', 'baterias_duracell.jpg', 3.99, 50, 10, 9,12);
+
+select * from tb_productos;
 
 /**************************FIN DE TABLAS DE PRODUCTOS**************************/
 --
@@ -157,6 +188,8 @@ insert into tb_usuarios values (null,'Leonardo','Lombardi Chavez','leonardo123',
 
 /****************************FIN DE TABLAS DE USUARIOS***********************/
 --
+
+select * from tb_usuarios;
 --
 /****************************INICIO DE TABLAS DE CLIENTES***********************/
 
